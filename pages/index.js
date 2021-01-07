@@ -1,65 +1,124 @@
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Degret from '@/lib/degret'
+import { useState, useEffect } from 'react'
 
-export default function Home() {
+let degret
+
+export default function Home () {
+  const initialState = {
+    canvas: null,
+    context: null,
+    gridSize: 41,
+    degree: 20,
+    distance: 40,
+    centerChecked: false,
+    nonOverrideChecked: false
+  }
+
+  const [state, setState] = useState(initialState)
+
+  useEffect(() => {
+    const _canvas = document.getElementById('canvas')
+    const _context = _canvas.getContext('2d')
+    setState({ ...state, canvas: _canvas, context: _context })
+    degret = new Degret({ ...state, canvas: _canvas, context: _context })
+  }, [])
+
+  const submit = () => {
+    degret.update(state)
+  }
+
+  const reset = () => {
+    setState(initialState)
+    degret.update(initialState)
+  }
+
+  const download = () => {
+    degret.download()
+  }
+
   return (
-    <div className={styles.container}>
+    <>
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Degret | Minecraft建築補助ツール</title>
+        <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+      <main>
+        <header className='bg-white'>
+          <div className='max-w-7xl mx-auto px-4 sm:px-8'>
+            <div className='flex justify-between h-16'>
+              <div className='flex-shrink-0 flex items-center'>
+                <img src='/degret.svg' alt='degret' />
+              </div>
+              <div className='flex items-center'>
+                <a href='https://twitter.com/hrqsn' target='_blank' rel='noopener noreferrer' className='hover:underline'>開発者</a>
+              </div>
+            </div>
+          </div>
+        </header>
+        <section className='max-w-7xl mx-auto px-4 sm:px-8 my-6'>
+          <div className='relative grid grid-cols-3 gap-8'>
+            <div className='col-span-3 sm:col-span-2'>
+              <canvas id='canvas' className='w-full border border-gray-200 rounded-lg' />
+            </div>
+            <div className='col-span-3 sm:col-span-1'>
+              <div className='mt-2 flex justify-between items-center'>
+                <h1 className='text-xl font-bold'>設定</h1>
+                <button className='text-sm hover:underline' onClick={() => reset()}>リセット</button>
+              </div>
+              <div className='mt-8'>
+                <div className='mt-4'>
+                  <label htmlFor='gridValue' className='block text-sm font-medium text-gray-700'>グリッドの大きさ</label>
+                  <div className='mt-1 flex items-center'>
+                    <input type='range' id='gridValue' name='gridValue' min='41' max='150' step='1' value={state.gridSize} onChange={(e) => setState({ ...state, gridSize: Number(e.target.value) })} className='appearance-none w-full h-1 bg-gray-400 rounded outline-none slider-thumb' />
+                    <label htmlFor='gridValue' className='font-mono ml-4'>{state.gridSize}</label>
+                  </div>
+                </div>
+                <div className='mt-4'>
+                  <label htmlFor='degree' className='block text-sm font-medium text-gray-700'>角度</label>
+                  <div className='mt-1'>
+                    <input type='number' name='degree' id='degree' value={state.degree} min={0} max={360} onChange={(e) => setState({ ...state, degree: Number(e.target.value) })} className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md' placeholder='角度を入力...' />
+                  </div>
+                </div>
+                <div className='mt-4'>
+                  <label htmlFor='number' className='block text-sm font-medium text-gray-700'>距離</label>
+                  <div className='mt-1'>
+                    <input type='number' name='number' id='number' min={0} max={1000} value={state.distance} onChange={(e) => setState({ ...state, distance: Number(e.target.value) })} className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md' placeholder='距離を入力...' />
+                  </div>
+                </div>
+                <div className='mt-6 flex items-start'>
+                  <div className='flex items-center h-5'>
+                    <input id='center' name='center' type='checkbox' checked={state.centerChecked} onChange={() => setState({ ...state, centerChecked: !state.centerChecked })} className='h-4 w-4 text-indigo-600 border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-0' />
+                  </div>
+                  <div className='ml-3 text-sm'>
+                    <label htmlFor='center' className='font-medium text-gray-700'>グリッドの中心を始点にする</label>
+                  </div>
+                </div>
+                <div className='mt-4 flex items-start'>
+                  <div className='flex items-center h-5'>
+                    <input id='add' name='add' type='checkbox' checked={state.nonOverrideChecked} onChange={() => setState({ ...state, nonOverrideChecked: !state.nonOverrideChecked })} className='h-4 w-4 text-indigo-600 border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-0' />
+                  </div>
+                  <div className='ml-3 text-sm'>
+                    <label htmlFor='add' className='font-medium text-gray-700'>上書きしない</label>
+                  </div>
+                </div>
+                <div className='pt-8 flex space-x-4'>
+                  <button type='button' onClick={() => submit()} className='transition ease-in-out inline-flex items-center px-4 py-1.5 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-0'>
+                    適用
+                  </button>
+                  <button type='button' onClick={() => download()} className='transition ease-in-out inline-flex items-center px-4 py-1.5 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-0'>
+                    画像をダウンロード
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
+      <footer className='flex justify-center py-24'>
+        <span className='text-center text-sm text-gray-400'>©︎ {new Date().getFullYear()} Degret.</span>
       </footer>
-    </div>
+    </>
   )
 }
