@@ -31,6 +31,8 @@ export default function Home () {
   const reset = () => {
     setState(initialState)
     degret.update(initialState)
+    document.getElementById('degree').value = 20
+    document.getElementById('distance').value = 40
   }
 
   const download = () => {
@@ -86,13 +88,13 @@ export default function Home () {
                 <div className='mt-4'>
                   <label htmlFor='degree' className='block text-sm font-medium text-gray-700'>角度</label>
                   <div className='mt-1'>
-                    <input type='number' name='degree' id='degree' value={state.degree} min={0} max={360} onChange={(e) => setState({ ...state, degree: Number(e.target.value) })} className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md' placeholder='角度を入力...' />
+                    <input type='number' name='degree' id='degree' defaultValue={state.degree} onChange={(e) => setState({ ...state, degree: Number(e.target.value) })} className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md' placeholder='角度を入力...' />
                   </div>
                 </div>
                 <div className='mt-4'>
-                  <label htmlFor='number' className='block text-sm font-medium text-gray-700'>距離</label>
+                  <label htmlFor='distance' className='block text-sm font-medium text-gray-700'>距離</label>
                   <div className='mt-1'>
-                    <input type='number' name='number' id='number' min={0} max={1000} value={state.distance} onChange={(e) => setState({ ...state, distance: Number(e.target.value) })} className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md' placeholder='距離を入力...' />
+                    <input type='number' name='distance' id='distance' defaultValue={state.distance} onChange={(e) => setState({ ...state, distance: Number(e.target.value) })} className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md' placeholder='距離を入力...' />
                   </div>
                 </div>
                 <div className='mt-6 flex items-start'>
