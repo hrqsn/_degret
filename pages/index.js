@@ -43,13 +43,13 @@ export default function Home () {
         <title>Degret | Minecraft建築補助ツール</title>
         <meta name='description' content='DegretはMinecraftの斜め建築をより正確に、楽にこなすためのツールです。' />
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
-        <link rel='icon' href='/icons/favicon.ico' />
+        <link rel='icon' href='https://degret.jp/icons/favicon.ico' />
         <meta name='theme-color' content='#ffffff' />
-        <link rel='apple-touch-icon' href='/icons/apple-touch-icon.png' />
-        <link rel='icon' type='image/png' sizes='32x32' href='/icons/favicon-32x32.png' />
-        <link rel='icon' type='image/png' sizes='16x16' href='/icons/favicon-16x16.png' />
-        <link rel='icon' type='image/png' href='/icons/android-chrome-256x256.png' sizes='256x256' />
-        <link rel='manifest' href='/icons/site.webmanifest' />
+        <link rel='apple-touch-icon' href='https://degret.jp/icons/apple-touch-icon.png' />
+        <link rel='icon' type='image/png' sizes='32x32' href='https://degret.jp/icons/favicon-32x32.png' />
+        <link rel='icon' type='image/png' sizes='16x16' href='https://degret.jp/icons/favicon-16x16.png' />
+        <link rel='icon' type='image/png' href='https://degret.jp/icons/android-chrome-256x256.png' sizes='256x256' />
+        <link rel='manifest' href='https://degret.jp/icons/site.webmanifest' />
       </Head>
 
       <main>
