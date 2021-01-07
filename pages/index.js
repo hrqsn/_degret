@@ -41,7 +41,15 @@ export default function Home () {
     <>
       <Head>
         <title>Degret | Minecraft建築補助ツール</title>
-        <link rel='icon' href='/favicon.ico' />
+        <meta name='description' content='DegretはMinecraftの斜め建築をより正確に、楽にこなすためのツールです。' />
+        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+        <link rel='icon' href='/icons/favicon.ico' />
+        <meta name='theme-color' content='#ffffff' />
+        <link rel='apple-touch-icon' href='/icons/apple-touch-icon.png' />
+        <link rel='icon' type='image/png' sizes='32x32' href='/icons/favicon-32x32.png' />
+        <link rel='icon' type='image/png' sizes='16x16' href='/icons/favicon-16x16.png' />
+        <link rel='icon' type='image/png' href='/icons/android-chrome-256x256.png' sizes='256x256' />
+        <link rel='manifest' href='/icons/site.webmanifest' />
       </Head>
 
       <main>
@@ -65,7 +73,7 @@ export default function Home () {
             <div className='col-span-3 sm:col-span-1'>
               <div className='mt-2 flex justify-between items-center'>
                 <h1 className='text-xl font-bold'>設定</h1>
-                <button className='text-sm hover:underline' onClick={() => reset()}>リセット</button>
+                <button className='text-sm hover:underline focus:outline-none' onClick={() => reset()}>リセット</button>
               </div>
               <div className='mt-8'>
                 <div className='mt-4'>
