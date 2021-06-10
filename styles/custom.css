@@ -1,5 +1,5 @@
 html, body, #__next {
-	@apply w-full h-full bg-gray-50 overflow-scroll;
+	@apply w-full h-full bg-gray-50;
 }
 
 .slider-thumb {

@@ -92,7 +92,7 @@ export default function Home () {
                   </div>
                 </div>
                 <div className='mt-4'>
-                  <label htmlFor='distance' className='block text-sm font-medium text-gray-700'>距離</label>
+                  <label htmlFor='distance' className='block text-sm font-medium text-gray-700'>直線の距離</label>
                   <div className='mt-1'>
                     <input type='number' name='distance' id='distance' defaultValue={state.distance} onChange={(e) => setState({ ...state, distance: Number(e.target.value) })} className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md' placeholder='距離を入力...' />
                   </div>
