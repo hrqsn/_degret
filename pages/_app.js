@@ -1,6 +1,5 @@
-import '@/styles/tailwind.css'
-import 'tailwindcss/utilities.css'
-import '@/styles/custom.css'
+import '@/styles/main.css'
+import '@/styles/chrome-bug.css'
 
 function MyApp ({ Component, pageProps }) {
   return <Component {...pageProps} />

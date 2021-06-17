@@ -1,0 +1,11 @@
+.fit {
+  min-height: calc(100vh - 96px);
+}
+
+.slider-thumb {
+  @apply h-1;
+}
+
+.slider-thumb::-webkit-slider-thumb, .slider-thumb::-moz-range-thumb {
+  @apply appearance-none w-4 h-4 rounded-full bg-black cursor-pointer border-transparent;
+}
